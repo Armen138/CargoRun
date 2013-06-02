@@ -1,4 +1,4 @@
-CargoRun
-========
+MatchGame
+=========
 
-WebGL game
+Match colored pieces (#1GAM)
