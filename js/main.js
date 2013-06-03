@@ -16,7 +16,7 @@ require(["game",
             Canvas,
             Resources,
             Menu,
-            play,
+            Play,
             gl,
             Modal,
             Element,
@@ -24,14 +24,16 @@ require(["game",
             Badge
             ) {
     "use strict";
-     var screenSize = { width: 324,
-                     height: 454};
+     var screenSize = { width: window.innerWidth,
+                     height: window.innerHeight};
 
     Canvas.size(screenSize);
     Canvas.clear("black");
 
     var highscores = JSON.parse(localStorage.getItem("highscores") || "[]") ;
 
+    var play = Play(gl);
+    
     Resources.on("load", function() {
         console.log("loaded");
         game.run();
@@ -146,10 +148,10 @@ require(["game",
         run: function() {
             Canvas.clear("black");
             Canvas.context.fillStyle = "white";
-            Canvas.context.font = "24px SofiaRegular";
+            Canvas.context.font = "24px GputeksRegular";
             Canvas.context.textAlign = "center";
             for(var i = 0; i < credits.content.length; i++) {
-                Canvas.context.font = i % 2 === 0 ? "12px Arial" : "24px SofiaRegular";
+                Canvas.context.font = i % 2 === 0 ? "12px Arial" : "24px GputeksRegular";
                 Canvas.context.fillText(credits.content[i], 162, i * 30 + 30);
             }
             Canvas.context.textAlign = "left";
@@ -169,7 +171,7 @@ require(["game",
         run: function() {
             Canvas.clear("black");
             Canvas.context.fillStyle = "white";
-            Canvas.context.font = "24px SofiaRegular"
+            Canvas.context.font = "24px GputeksRegular"
             for(var i = 0; i < highscores.length; i++) {
                 Canvas.context.textAlign = "left";
                 Canvas.context.fillText((i + 1), 20, i * 30 + 30);

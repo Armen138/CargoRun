@@ -20,7 +20,7 @@ define("menu", ["easing"], function(easing) {
             context = canvas.getContext("2d"),
             splashX = 0;
         var paused = {
-            font: "48px SofiaRegular",
+            font: "48px GputeksRegular",
             click: function(mouse) {
                 //menu[0].action();
                 if(mouse.X < width) {
