@@ -28,7 +28,7 @@ define("play", [
                 pointLight.position.z = 300;
 
                 // add to the scene
-                gl.scene.add(pointLight); 
+                gl.camera.add(pointLight); 
 
 
                 var material = new THREE.MeshPhongMaterial({ color: 0xCC0000 }),
@@ -44,6 +44,12 @@ define("play", [
             },
             reset: function() {
 
+            },
+            keydown: function(which) {
+                if(which === keys.UP) {
+                    gl.camera.position.z += 10;
+                    console.log("up");
+                }
             }
         };
         Events.attach(play);
