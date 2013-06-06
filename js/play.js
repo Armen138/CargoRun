@@ -17,9 +17,13 @@ define("play", [
                 if(!play.light) {
                     var radius = 50, segments = 16, rings = 16;                 
                     var sphereMaterial = new THREE.MeshPhongMaterial({ color: 0xCC0000 });
-                    var sphere = new THREE.Mesh(new THREE.SphereGeometry(radius, segments, rings), sphereMaterial);                
+                    //var sphere = new THREE.Mesh(new THREE.SphereGeometry(radius, segments, rings), sphereMaterial);                
+                    var sphere = new THREE.Mesh(Resources.ship, new THREE.MeshFaceMaterial());                                
                     gl.scene.add(sphere);
                     play.ship = sphere;
+                    play.ship.rotation.x += Math.PI / 2;
+                    play.ship.rotation.y = Math.PI;
+                    play.ship.scale.set(10, 10, 10);
 
                     
 
@@ -27,15 +31,17 @@ define("play", [
                     var pointLight = new THREE.PointLight(0xFFFFFF);
 
                     // set its position
-                    pointLight.position.x = 300;
-                    pointLight.position.y = 300;
-                    pointLight.position.z = 300;
+                    pointLight.position.x = 0;
+                    pointLight.position.y = 0;
+                    pointLight.position.z = 0;
 
                     play.light = pointLight;
                     // add to the scene
                     gl.camera.add(pointLight); 
-                    gl.scene.remove(gl.camera);
-                    sphere.add(gl.camera);
+                    gl.camera.position.y = -200;
+                    gl.camera.position.z = 100;
+                    // gl.scene.remove(gl.camera);
+                    // sphere.add(gl.camera);
 
                     var material = new THREE.MeshPhongMaterial({ color: 0xCC0000 }),
                         plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000, 127, 127));
@@ -54,10 +60,12 @@ define("play", [
             },
             keydown: function(which) {
                 if(which === keys.RIGHT) {
-                    play.ship.position.x += 10;
+                    //play.ship.position.x += 10;
+                    play.ship.rotation.z += 0.1;
                 }
                 if(which === keys.LEFT) {
-                    play.ship.position.x -= 10;
+                    //play.ship.position.x -= 10;
+                    play.ship.rotation.z -= 0.1;
                 }
                 if(which === keys.UP) {
                     play.ship.position.y += 10;

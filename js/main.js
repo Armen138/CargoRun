@@ -33,7 +33,7 @@ require(["game",
     var highscores = JSON.parse(localStorage.getItem("highscores") || "[]") ;
 
     var play = Play(gl);
-    
+
     Resources.on("load", function() {
         console.log("loaded");
         game.run();
@@ -46,7 +46,8 @@ require(["game",
         "bricks": "images/bricks.png",
         "music": "audio/music.mp3",
         "boop": "audio/boop.ogg",
-        "select": "audio/select.ogg"
+        "select": "audio/select.ogg",
+        "ship": "3d/ship-animated.js"
     });
 
     play.on("menu", function() {
