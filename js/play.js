@@ -18,7 +18,8 @@ define("play", [
                     var radius = 50, segments = 16, rings = 16;                 
                     var sphereMaterial = new THREE.MeshPhongMaterial({ color: 0xCC0000 });
                     //var sphere = new THREE.Mesh(new THREE.SphereGeometry(radius, segments, rings), sphereMaterial);                
-                    var sphere = new THREE.Mesh(Resources.ship, new THREE.MeshFaceMaterial());                                
+                    //var sphere = new THREE.Mesh(Resources.ship, new THREE.MeshFaceMaterial());                                
+                    var sphere = Resources.ship;
                     gl.scene.add(sphere);
                     play.ship = sphere;
                     play.ship.rotation.x += Math.PI / 2;

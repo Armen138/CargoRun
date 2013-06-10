@@ -46,9 +46,11 @@ define("resources", ["events", "racket"], function(events, Racket) {
                             meshLoader = new THREE.JSONLoader();
                         }
                         (function(file) {
-                            meshLoader.load(files[file], function(geometry) {
-                                console.log("3d file loaded");
-                                resources[file] = geometry;
+                            meshLoader.load(files[file], function(geometry, material) {
+                                console.log(material);
+                                console.log("3d file loaded");                                
+                                var faceMaterial = new THREE.MeshFaceMaterial(material);
+                                resources[file] = new THREE.Mesh(geometry, faceMaterial);
                                 loaded(file);
                             });                            
                         }(file));
