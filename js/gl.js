@@ -12,7 +12,7 @@ define("gl", ["three"], function() {
 	gl.scene = new THREE.Scene();
 
 	gl.scene.add(gl.camera);
-	gl.camera.position = {x: 0, y: -20, z: 20};
+	gl.camera.position = {x: 0, y: -40, z: 10};
 	gl.camera.lookAt({x: 0, y: 0, z: 0});
 	gl.renderer.setSize(gl.width, gl.height);
 	document.body.appendChild(gl.renderer.domElement);

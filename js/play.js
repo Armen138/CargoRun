@@ -4,29 +4,32 @@ define("play", [
         "canvas",
         "resources",
         "keys",
-        "events"
+        "events",
+        "ship"
     ],function(Canvas,
             Resources,
             keys,
-            Events) {
+            Events,
+            Ship) {
     "use strict";
+    var last = 0;
     var Play = function(gl) {
         var play = {
             init: function() {
                 console.log("glinit");                
                 if(!play.light) {
-                    var radius = 50, segments = 16, rings = 16;                 
-                    var sphereMaterial = new THREE.MeshPhongMaterial({ color: 0xCC0000 });
-                    //var sphere = new THREE.Mesh(new THREE.SphereGeometry(radius, segments, rings), sphereMaterial);                
-                    //var sphere = new THREE.Mesh(Resources.ship, new THREE.MeshFaceMaterial());                                
-                    var sphere = Resources.ship;
-                    gl.scene.add(sphere);
-                    play.ship = sphere;
-                    play.ship.rotation.x += Math.PI / 2;
-                    play.ship.rotation.y = Math.PI;
-                    play.ship.scale.set(10, 10, 10);
+                    // var radius = 50, segments = 16, rings = 16;                 
+                    // var sphereMaterial = new THREE.MeshPhongMaterial({ color: 0xCC0000 });
+                    // //var sphere = new THREE.Mesh(new THREE.SphereGeometry(radius, segments, rings), sphereMaterial);                
+                    // //var sphere = new THREE.Mesh(Resources.ship, new THREE.MeshFaceMaterial());                                
+                    // var sphere = Resources.ship;
+                    // gl.scene.add(sphere);
+                    // play.ship = sphere;
+                    // play.ship.rotation.x += Math.PI / 2;
+                    // play.ship.rotation.y = Math.PI;
+                    // play.ship.scale.set(5, 5, 5);
 
-                    
+                    play.ship = Ship(gl.scene, gl.camera);
 
 
                     var pointLight = new THREE.PointLight(0xFFFFFF);
@@ -45,13 +48,17 @@ define("play", [
                     // sphere.add(gl.camera);
 
                     var material = new THREE.MeshPhongMaterial({ color: 0xCC0000 }),
-                        plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000, 127, 127));
+                        plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000, 127, 127), material);
+                    plane.position.z = -30;
                     //plane.position = ;
                     gl.scene.add(plane);                
                 }
             },
             run: function() {
+                var now = Date.now();
+                play.ship.update(now - last);
                 gl.renderer.render(gl.scene, gl.camera);
+                last = now;
             },
             clear: function(cb) {
                 cb();
@@ -60,20 +67,61 @@ define("play", [
                 gl.scene.remove(play.ship);                
             },
             keydown: function(which) {
-                if(which === keys.RIGHT) {
-                    //play.ship.position.x += 10;
-                    play.ship.rotation.z += 0.1;
+                switch(which) {
+                    case keys.RIGHT:
+                        play.ship.control.right = true;
+                        break;
+                    case keys.LEFT:
+                        play.ship.control.left = true;
+                        break;
+                    case keys.UP:
+                        play.ship.control.up = true;
+                        break;
+                    case keys.DOWN:
+                        play.ship.control.down = true;
+                        break;
+                    case keys.SPACE:
+                        play.ship.control.jump();
+                        break;
+                    default:
+                        break;                        
                 }
-                if(which === keys.LEFT) {
-                    //play.ship.position.x -= 10;
-                    play.ship.rotation.z -= 0.1;
+                // if(which === keys.RIGHT) {
+                //     //play.ship.position.x += 10;
+                //     play.ship.rotation.z += 0.1;
+                // }
+                // if(which === keys.LEFT) {
+                //     //play.ship.position.x -= 10;
+                //     play.ship.rotation.z -= 0.1;
+                // }
+                // if(which === keys.UP) {
+                //     play.ship.position.y += 10;
+                // }
+                // if(which === keys.DOWN) {
+                //     play.ship.position.y -= 10;
+                // }
+            },
+            keyup: function(which) {
+                switch(which) {
+                    case keys.RIGHT:
+                        play.ship.control.right = false;
+                        break;
+                    case keys.LEFT:
+                        play.ship.control.left = false;
+                        break;
+                    case keys.UP:
+                        play.ship.control.up = false;
+                        break;
+                    case keys.DOWN:
+                        play.ship.control.down = false;
+                        break;
+                    case keys.SPACE:
+                        play.ship.control.jump = false;
+                        break;
+                    default:
+                        break;                        
                 }
-                if(which === keys.UP) {
-                    play.ship.position.y += 10;
-                }
-                if(which === keys.DOWN) {
-                    play.ship.position.y -= 10;
-                }
+
             }
         };
         Events.attach(play);

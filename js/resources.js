@@ -50,7 +50,7 @@ define("resources", ["events", "racket"], function(events, Racket) {
                                 console.log(material);
                                 console.log("3d file loaded");                                
                                 var faceMaterial = new THREE.MeshFaceMaterial(material);
-                                resources[file] = new THREE.Mesh(geometry, faceMaterial);
+                                resources[file] = { geometry: geometry, material: faceMaterial }; //new THREE.Mesh(geometry, faceMaterial);
                                 loaded(file);
                             });                            
                         }(file));
