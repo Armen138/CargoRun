@@ -35,12 +35,13 @@ define("ship", [
 				right: false,
 				jump: function() {
 					jumpStart = Date.now();
+					
 				}
 			},
 			update: function(d) {
-				if(ship.control.jump) {
-					shipMesh.position.z += d / 5;
-				}
+				// if(ship.control.jump) {
+				// 	shipMesh.position.z += d / 5;
+				// }
 				if(ship.control.left) {
 					shipMesh.position.x -= d / 5;
 					shipMesh.rotation.z -= d / 150;

@@ -116,7 +116,7 @@ define("play", [
                         play.ship.control.down = false;
                         break;
                     case keys.SPACE:
-                        play.ship.control.jump = false;
+                        //play.ship.control.jump = false;
                         break;
                     default:
                         break;                        
