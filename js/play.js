@@ -5,57 +5,42 @@ define("play", [
         "resources",
         "keys",
         "events",
-        "ship"
+        "ship",
+        "world"
     ],function(Canvas,
             Resources,
             keys,
             Events,
-            Ship) {
+            Ship,
+            World) {
     "use strict";
-    var last = 0;
-    var Play = function(gl) {
+    var last = 0;    
+    var Play = function(gl) {        
         var play = {
             init: function() {
                 console.log("glinit");                
                 if(!play.light) {
-                    // var radius = 50, segments = 16, rings = 16;                 
-                    // var sphereMaterial = new THREE.MeshPhongMaterial({ color: 0xCC0000 });
-                    // //var sphere = new THREE.Mesh(new THREE.SphereGeometry(radius, segments, rings), sphereMaterial);                
-                    // //var sphere = new THREE.Mesh(Resources.ship, new THREE.MeshFaceMaterial());                                
-                    // var sphere = Resources.ship;
-                    // gl.scene.add(sphere);
-                    // play.ship = sphere;
-                    // play.ship.rotation.x += Math.PI / 2;
-                    // play.ship.rotation.y = Math.PI;
-                    // play.ship.scale.set(5, 5, 5);
-
                     play.ship = Ship(gl.scene, gl.camera);
-
-
-                    var pointLight = new THREE.PointLight(0xFFFFFF);
+                    play.world = World(gl.scene, play.ship);
+                    var pointLight = new THREE.PointLight(0xFFFFFF);//, 1.0, 1200, 120, 1);
 
                     // set its position
                     pointLight.position.x = 0;
                     pointLight.position.y = 0;
                     pointLight.position.z = 0;
+                    pointLight.castShadow = true;
 
                     play.light = pointLight;
                     // add to the scene
                     gl.camera.add(pointLight); 
                     gl.camera.position.y = -200;
                     gl.camera.position.z = 100;
-                    // gl.scene.remove(gl.camera);
-                    // sphere.add(gl.camera);
-
-                    var material = new THREE.MeshPhongMaterial({ color: 0xCC0000 }),
-                        plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000, 127, 127), material);
-                    plane.position.z = -30;
-                    //plane.position = ;
-                    gl.scene.add(plane);                
+              
                 }
             },
             run: function() {
                 var now = Date.now();
+                play.world.update(now - last);
                 play.ship.update(now - last);
                 gl.renderer.render(gl.scene, gl.camera);
                 last = now;
