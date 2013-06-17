@@ -4,7 +4,7 @@ define("world", function() {
 	var MAXPLANES = 6;	
 	var MAXOBSTACLES = 12;
 	var World = function(scene, ship) {
-        var texture = THREE.ImageUtils.loadTexture('../images/plate1.png');
+        var texture = THREE.ImageUtils.loadTexture('images/plate1.png');
         texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
         texture.repeat.set(5, 5);                    
         var material = new THREE.MeshLambertMaterial({ map: texture });
