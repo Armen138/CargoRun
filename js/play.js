@@ -28,7 +28,7 @@ define("play", [
                     pointLight.position.x = 0;
                     pointLight.position.y = 0;
                     pointLight.position.z = 0;
-                    pointLight.castShadow = true;
+                    // pointLight.castShadow = true;
 
                     play.light = pointLight;
                     // add to the scene

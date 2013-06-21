@@ -3,13 +3,13 @@ define("ship", [
 	"easing"], function(
 		Resources,
 		easing) {
-	var PARTICLECOUNT = 50;
+	var PARTICLECOUNT = 500;
 	var limits = {
 		rotation: 0.7,
 		strafes: 135
 	};
 	var speed = {
-		max: 10,
+		max: 5,
 		current: 0,
 		sideways: 0
 	};
@@ -20,14 +20,22 @@ define("ship", [
 	    	shipMesh.scale.set(5, 5, 5);	
 	    	shipMesh.castShadow = true;	
 		scene.add(shipMesh);
-
+    // attributes
+    attributes = {
+    	size: { type: "f", value: [] },
+        alpha: { type: 'f', value: [] }
+    };
+    uniforms = {
+		color: { type: "c", value: new THREE.Color( 0xff0000 ) },
+        texture1: { type: "t", value: THREE.ImageUtils.loadTexture("images/particle.png") }
+    };
 		// create the particle variables
 		var particles = new THREE.Geometry(),
-		    pMaterial = new THREE.ParticleBasicMaterial({
-				color: 0xFFFFFF,
-				size: 10,
-				map: THREE.ImageUtils.loadTexture("images/particle.png"),
-				blending: THREE.AdditiveBlending,
+		    pMaterial = new THREE.ShaderMaterial({
+				attributes: attributes,
+				uniforms: uniforms,
+				vertexShader:   document.getElementById( 'vertexshader' ).textContent,
+				fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
 				transparent: true
 			});
 
@@ -40,9 +48,10 @@ define("ship", [
 		  	var pX = Math.random() * 1 - 0.5,
 		      	pY = Math.random() * 1 - 0.5,
 		      	pZ = Math.random() * 4 - 2,
-		      	particle = new THREE.Vertex(new THREE.Vector3(pX, pY, pZ));
-			particle.velocity = new THREE.Vector3(0, 0, -Math.random() / 5);		  
-			particle.range = 10;
+		      	particle = new THREE.Vector3(pX, pY, pZ);
+			particle.velocity = new THREE.Vector3(Math.random() - 0.5, -Math.random() * 5, Math.random() - 0.5);		  
+			particle.range = 12;
+			particle.start = {x: pX, y: pY, z: pZ};
 		  	particles.vertices.push(particle);
 		}
 
@@ -52,21 +61,25 @@ define("ship", [
 		    particles,
 		    pMaterial);
 		particleSystem.sortParticles = true;
-		particleSystem.position.z = -6;
-		// add it to the scene
-		shipMesh.add(particleSystem);
+		scene.add(particleSystem);
 
 
 		function particleUpdate() {
-			particleSystem.rotation.z += 0.01;
 			var particle = PARTICLECOUNT;
 			while(particle--) {
 				var p = particles.vertices[particle];
 				p.add(p.velocity);
-				if(p.z < -p.range) {
-					p.z = 0;
+				var pdist = p.distanceTo(p.start);
+				if(pdist > p.range && particleSystem.emit) {
+					p.x = shipMesh.position.x;
+					p.y = shipMesh.position.y - 20;
+					p.z = shipMesh.position.z;
+					p.start.x = shipMesh.position.x;
+					p.start.y = shipMesh.position.y - 20;
+					p.start.z = shipMesh.position.z;
 				}
-				particles.colors[particle] = new THREE.Color("rgba(255, 0, 0, 1.0)");// + (1.0 * (p.z / p.range)) + ")");				
+				attributes.alpha.value[particle] = 1.0 - (pdist / p.range);
+				attributes.size.value[particle] = (pdist / p.range) * 30;
 			}
 		}
 
@@ -127,8 +140,10 @@ define("ship", [
 				}
 				if(ship.control.up) {
 					//shipMesh.position.y += d / 5;	
+					particleSystem.emit = true;
 					speed.current += d / 500;					
 				} else {
+					particleSystem.emit = false;
 					speed.current -= d / 500;
 				}
 				// if(ship.control.down) {

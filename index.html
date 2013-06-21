@@ -32,6 +32,34 @@
 		<script src="http://clay.io/api/api.js"></script -->
 		<script data-main="js/main" src="js/require.js"></script>
 
+<script type="x-shader/x-vertex" id="vertexshader">
+
+    attribute float alpha;
+    attribute float size;
+    varying float vAlpha;
+	
+    void main() {
+        vAlpha = alpha;    
+        vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+        gl_PointSize = size;
+        gl_Position = projectionMatrix * mvPosition;
+    }
+
+</script>
+
+<script type="x-shader/x-fragment" id="fragmentshader">
+
+    uniform sampler2D texture1;    
+    varying float vAlpha;
+    void main() {
+        gl_FragColor = texture2D(texture1, gl_PointCoord);
+        // gl_FragColor.r *= vAlpha;
+        // gl_FragColor.g *= vAlpha;
+        // gl_FragColor.b *= vAlpha;
+        gl_FragColor.a *= vAlpha;
+    }
+
+</script>
 	</head>
 	<body>
 		<canvas>One does not simply play games without a canvas-capable browser</canvas>
