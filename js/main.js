@@ -47,7 +47,8 @@ require(["game",
         "music": "audio/music.mp3",
         "boop": "audio/boop.ogg",
         "select": "audio/select.ogg",
-        "ship": "3d/ship3.js"
+        "ship": "3d/ship3.js",
+        "fuel": "3d/fuel.js"
     });
 
     play.on("menu", function() {

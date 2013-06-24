@@ -53,9 +53,9 @@
     varying float vAlpha;
     void main() {
         gl_FragColor = texture2D(texture1, gl_PointCoord);
-        // gl_FragColor.r *= vAlpha;
-        // gl_FragColor.g *= vAlpha;
-        // gl_FragColor.b *= vAlpha;
+        // gl_FragColor.r = 0.1;//vAlpha;
+        // gl_FragColor.g = 0.1;//1.0;//vAlpha;
+        // gl_FragColor.b = 0.1;//1.0;
         gl_FragColor.a *= vAlpha;
     }
 

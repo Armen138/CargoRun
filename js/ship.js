@@ -3,13 +3,14 @@ define("ship", [
 	"easing"], function(
 		Resources,
 		easing) {
-	var PARTICLECOUNT = 500;
+	var PARTICLECOUNT = 50;
 	var limits = {
 		rotation: 0.7,
-		strafes: 135
+		strafes: 135,
+		ttl: 100
 	};
 	var speed = {
-		max: 5,
+		max: 10,
 		current: 0,
 		sideways: 0
 	};
@@ -17,7 +18,7 @@ define("ship", [
 	    var shipMesh =  new THREE.Mesh(Resources.ship.geometry, Resources.ship.material);
 	    	shipMesh.rotation.x += Math.PI / 2;
 	    	shipMesh.rotation.y = Math.PI;
-	    	shipMesh.scale.set(5, 5, 5);	
+	    	shipMesh.scale.set(2, 2, 2);	
 	    	shipMesh.castShadow = true;	
 		scene.add(shipMesh);
     // attributes
@@ -41,19 +42,41 @@ define("ship", [
 
 
 		// now create the individual particles
+		// for(var p = 0; p < PARTICLECOUNT; p++) {
+
+		//   // create a particle with random
+		//   // position values, -250 -> 250
+		//   	var pX = Math.random() * 1 - 0.5,
+		//       	pY = Math.random() * 1 - 0.5,
+		//       	pZ = Math.random() * 4 - 2,
+		//       	particle = new THREE.Vector3(pX, pY, pZ);
+		// 	particle.velocity = new THREE.Vector3((Math.random() - 0.5) , 
+		// 										-Math.random(), 
+		// 										(Math.random() - 0.5) );		  
+		// 	particle.range = 50;
+		// 	particle.time = Date.now();
+		// 	particle.start = {x: pX, y: pY, z: pZ};
+		//   	particles.vertices.push(particle);
+		// }
+
+		var pool = [];
+
 		for(var p = 0; p < PARTICLECOUNT; p++) {
 
 		  // create a particle with random
 		  // position values, -250 -> 250
-		  	var pX = Math.random() * 1 - 0.5,
-		      	pY = Math.random() * 1 - 0.5,
-		      	pZ = Math.random() * 4 - 2,
-		      	particle = new THREE.Vector3(pX, pY, pZ);
-			particle.velocity = new THREE.Vector3(Math.random() - 0.5, -Math.random() * 5, Math.random() - 0.5);		  
-			particle.range = 12;
-			particle.start = {x: pX, y: pY, z: pZ};
+		    var particle = new THREE.Vector3(0, 0, 0);
+			// particle.velocity = new THREE.Vector3((Math.random() - 0.5) , 
+			// 									-Math.random(), 
+			// 									(Math.random() - 0.5) );		  
+			particle.active = false;
+			particle.range = 50;
+			particle.time = 0;
+			particle.start = {x: 0, y: 0, z: 0};
 		  	particles.vertices.push(particle);
+		  	pool.push(particle);
 		}
+
 
 		// create the particle system
 		var particleSystem =
@@ -64,23 +87,74 @@ define("ship", [
 		scene.add(particleSystem);
 
 
-		function particleUpdate() {
-			var particle = PARTICLECOUNT;
-			while(particle--) {
-				var p = particles.vertices[particle];
-				p.add(p.velocity);
-				var pdist = p.distanceTo(p.start);
-				if(pdist > p.range && particleSystem.emit) {
-					p.x = shipMesh.position.x;
-					p.y = shipMesh.position.y - 20;
-					p.z = shipMesh.position.z;
-					p.start.x = shipMesh.position.x;
-					p.start.y = shipMesh.position.y - 20;
-					p.start.z = shipMesh.position.z;
-				}
-				attributes.alpha.value[particle] = 1.0 - (pdist / p.range);
-				attributes.size.value[particle] = (pdist / p.range) * 30;
+		function particleUpdate() {			
+			var ppf = 5;
+			if(particleSystem.emit && pool.length > ppf) {				
+				for(var i = 0; i < ppf; i++) {
+					var newP = pool.shift();
+					newP.active = true;
+					newP.x = shipMesh.position.x + Math.random() * 2 - 1;
+					newP.y = shipMesh.position.y + Math.random() * 10 - 15;
+					// newP.z = shipMesh.position.z; + Math.random() * 10;
+					newP.time = Date.now();
+					// newP.velocity = new THREE.Vector3((Math.random() - 0.5) , 
+					// 									-Math.random(), 
+					// 									(Math.random() - 0.5) );				
+					newP.velocity = new THREE.Vector3(0, 0, 0); 
+				}				
+			} 
+			if(pool.length < ppf) {
+				console.log("Insufficient particles in pool.");
 			}
+			
+			// console.log(pool.length);
+			for(var i = particles.vertices.length - 1; i >= 0; --i) {				
+				var p = particles.vertices[i];				
+				// console.log(p.active);
+				if(p.active) {
+					p.add(p.velocity);
+					var life = Date.now() - p.time;
+					var pdist = shipMesh.position.distanceTo(p);
+					// if(pdist > p.range && particleSystem.emit) {
+					attributes.alpha.value[i] = 1.0 - (life / limits.ttl);
+					attributes.size.value[i] = 20 - (life / limits.ttl) * 20;						
+					if(life > limits.ttl) { // && particleSystem.emit) {
+						attributes.alpha.value[i] = 0.0;
+						p.active = false;
+						p.x = 0;
+						p.y = 0;
+						p.z = 0;
+
+						pool.push(p);
+						// p.x = shipMesh.position.x;
+						// p.y = shipMesh.position.y - 2;
+						// p.z = shipMesh.position.z;
+						// p.start.x = shipMesh.position.x;
+						// p.start.y = shipMesh.position.y - 2;
+						// p.start.z = shipMesh.position.z;
+						// p.time = Date.now();
+					}					
+				}
+			}
+
+			// var particle = PARTICLECOUNT;
+			// while(particle--) {
+			// 	var p = particles.vertices[particle];
+			// 	p.add(p.velocity);
+			// 	var pdist = shipMesh.position.distanceTo(p);
+			// 	// if(pdist > p.range && particleSystem.emit) {
+			// 	if(Date.now() - p.time > limits.ttl && particleSystem.emit) {					
+			// 		p.x = shipMesh.position.x;
+			// 		p.y = shipMesh.position.y - 2;
+			// 		p.z = shipMesh.position.z;
+			// 		p.start.x = shipMesh.position.x;
+			// 		p.start.y = shipMesh.position.y - 2;
+			// 		p.start.z = shipMesh.position.z;
+			// 		p.time = Date.now();
+			// 	}
+			// 	attributes.alpha.value[particle] = 1.0;// - (pdist / p.range);
+			// 	attributes.size.value[particle] = (pdist / p.range) * 20;
+			// }
 		}
 
 		function limit() {

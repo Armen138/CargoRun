@@ -1,0 +1,2 @@
+2013/06/22 20:17:24 [error] 441#0: *5 open() "/home/armen/Projects/CargoRun/favicon.ico" failed (2: No such file or directory), client: 127.0.0.1, server: cargorun, request: "GET /favicon.ico HTTP/1.1", host: "cargorun"
+2013/06/22 20:18:57 [error] 441#0: *8 open() "/home/armen/Projects/CargoRun/favicon.ico" failed (2: No such file or directory), client: 127.0.0.1, server: cargorun, request: "GET /favicon.ico HTTP/1.1", host: "cargorun"
