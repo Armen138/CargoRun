@@ -22,6 +22,7 @@ define("play", [
                 if(!play.light) {
                     play.ship = Ship(gl.scene, gl.camera);
                     play.world = World(gl.scene, play.ship);
+                    
                     var pointLight = new THREE.PointLight(0xFFFFFF);//, 1.0, 1200, 120, 1);
 
                     // set its position
