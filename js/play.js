@@ -6,12 +6,16 @@ define("play", [
         "keys",
         "events",
         "ship",
+        "fuel",
+        "stars",
         "world"
     ],function(Canvas,
             Resources,
             keys,
             Events,
             Ship,
+            Fuel,
+            Stars,
             World) {
     "use strict";
     var last = 0;    
@@ -22,6 +26,11 @@ define("play", [
                 if(!play.light) {
                     play.ship = Ship(gl.scene, gl.camera);
                     play.world = World(gl.scene, play.ship);
+                    play.fuel = [];
+                    play.stars = Stars(gl.scene, play.ship);
+                    for(var i = 0; i < 10; i++) {
+                        play.fuel.push(Fuel(gl.scene, new THREE.Vector3(Math.random() * 250 - 125, Math.random() * 1000, 0)));    
+                    }
                     
                     var pointLight = new THREE.PointLight(0xFFFFFF);//, 1.0, 1200, 120, 1);
 
@@ -42,7 +51,11 @@ define("play", [
             run: function() {
                 var now = Date.now();
                 play.world.update(now - last);
+                play.stars.update();
                 play.ship.update(now - last);
+                for(var i = 0; i < play.fuel.length; i++) {
+                    play.fuel[i].update(now - last);
+                }
                 gl.renderer.render(gl.scene, gl.camera);
                 last = now;
             },

@@ -1,4 +1,4 @@
-define("gl", ["three"], function() {
+define("gl", function() {
 	var gl = {
 		width: window.innerWidth,
 		height: window.innerHeight,
