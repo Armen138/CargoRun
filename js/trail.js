@@ -53,7 +53,7 @@ define("trail", function() {
 						newP.active = true;
 						newP.x = shipMesh.position.x + Math.random() * 2 - 1 + offset.x;
 						newP.y = shipMesh.position.y - Math.random() * 10 + offset.y;
-						newP.z = 0 + offset.z;
+						newP.z = shipMesh.position.z + offset.z;
 						// newP.z = shipMesh.position.z; + Math.random() * 10;
 						newP.time = Date.now();
 						newP.velocity = new THREE.Vector3(0, 0, 0); 

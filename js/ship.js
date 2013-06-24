@@ -9,19 +9,25 @@ define("ship", [
 	var limits = {
 		rotation: 0.7,
 		strafes: 135,
-		ttl: 100
+		ttl: 100,
+		jump: 500
 	};
 	var speed = {
 		max: 10,
 		current: 0,
-		sideways: 0
-	};
-	var Ship = function(scene, camera) {
+		sideways: 0,
+		gravity: 1,
+		jump: 4
+	};	
+	var Ship = function(scene, camera) {		
 	    var shipMesh =  new THREE.Mesh(Resources.ship.geometry, Resources.ship.material);
-	    	shipMesh.rotation.x += Math.PI / 2;
-	    	shipMesh.rotation.y = Math.PI;
-	    	shipMesh.scale.set(2, 2, 2);	
-	    	shipMesh.castShadow = true;	
+	    shipMesh.rotation.x += Math.PI / 2;
+	    shipMesh.rotation.y = Math.PI;
+	    shipMesh.scale.set(2, 2, 2);	
+	    shipMesh.castShadow = true;	
+		var groundCheck = new THREE.Raycaster();//shipMesh.position, );	    	
+		var down = new THREE.Vector3(0, 0, -1);
+		var jumpStart = 0;
 		scene.add(shipMesh);
 
 
@@ -72,6 +78,23 @@ define("ship", [
 				}
 			},
 			update: function(d) {
+				var now = Date.now();
+				groundCheck.set(shipMesh.position, down);
+				var c = groundCheck.intersectObject(scene, true);
+				if(c.length > 0) {
+					if(c[0].distance > 10) {
+						shipMesh.position.z -= speed.gravity;
+					}
+				} else {
+					console.log("no more ground!");
+					shipMesh.position.z -= speed.gravity;
+				}
+				if(now - jumpStart < limits.jump) {
+					var upforce = speed.jump - speed.jump * (now - jumpStart) / limits.jump;
+					shipMesh.position.z += upforce;
+				}
+				
+				// console.log(c);
 				// if(ship.control.jump) {
 				// 	shipMesh.position.z += d / 5;
 				// }				
