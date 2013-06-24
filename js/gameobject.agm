@@ -1,7 +1,0 @@
-GameObject(arg1, arg2) {
-	priv = "priv"
-	.pub {
-		.name = "object1"
-		.type = "rock"
-	}	
-}
