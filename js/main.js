@@ -142,9 +142,9 @@ require(["game",
                 "Programming",
                 "Armen138",
                 "Music",
-                "Rezoner",
+                "TBD",
                 "Graphics",
-                "Various from opengameart.org"
+                "Armen138"
             ];
         },
         run: function() {
