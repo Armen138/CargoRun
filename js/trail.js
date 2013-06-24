@@ -29,6 +29,7 @@ define("trail", function() {
 			particle.range = 50;
 			particle.time = 0;
 			particle.start = {x: 0, y: 0, z: 0};
+			particle.velocity = new THREE.Vector3(0, 0, 0); 
 		  	particles.vertices.push(particle);
 		  	pool.push(particle);
 		}

@@ -8,6 +8,7 @@ define("play", [
         "ship",
         "fuel",
         "stars",
+        "explosion",
         "world"
     ],function(Canvas,
             Resources,
@@ -16,11 +17,13 @@ define("play", [
             Ship,
             Fuel,
             Stars,
+            Explosion,
             World) {
     "use strict";
     var last = 0;    
     var Play = function(gl) {        
         var play = {
+            updates: [],
             init: function() {
                 console.log("glinit");                
                 if(!play.light) {
@@ -29,7 +32,23 @@ define("play", [
                     play.fuel = [];
                     play.stars = Stars(gl.scene, play.ship);
                     for(var i = 0; i < 10; i++) {
-                        play.fuel.push(Fuel(gl.scene, new THREE.Vector3(Math.random() * 250 - 125, Math.random() * 1000, 0)));    
+                        (function() {
+                            var fuel = Fuel(gl.scene, 
+                                        new THREE.Vector3(Math.random() * 250 - 125, 
+                                                        Math.random() * 1000, 
+                                                        0), 
+                                        play.ship);
+                            fuel.on("pick-up", function() {
+                                var exp = Explosion(play.ship.mesh, 
+                                                    new THREE.Vector3(0, 0, 0));
+                                    exp.on("end", function() {
+                                        // play.ship.mesh.remove(exp.system);
+                                    });
+                                // play.ship.mesh.add(exp.system);
+                                play.updates.push(exp);                                                                      
+                            });play.fuel.push(fuel);
+                        }());
+                        
                     }
                     
                     var pointLight = new THREE.PointLight(0xFFFFFF);//, 1.0, 1200, 120, 1);
@@ -56,6 +75,9 @@ define("play", [
                 for(var i = 0; i < play.fuel.length; i++) {
                     play.fuel[i].update(now - last);
                 }
+                for(var i = 0; i < play.updates.length; i++) {
+                    play.updates[i].update(now - last);
+                }                
                 gl.renderer.render(gl.scene, gl.camera);
                 last = now;
             },
@@ -81,6 +103,15 @@ define("play", [
                         break;
                     case keys.SPACE:
                         play.ship.control.jump();
+                        (function() {
+                            var exp = Explosion(gl.scene, 
+                                                play.ship.mesh.position.clone());
+                                exp.on("end", function() {
+                                    // play.ship.mesh.remove(exp.system);
+                                });
+                            // play.ship.mesh.add(exp.system);
+                            play.updates.push(exp);                                                                      
+                        }());
                         break;
                     default:
                         break;                        

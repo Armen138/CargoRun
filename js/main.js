@@ -97,7 +97,7 @@ require(["game",
     });
     cntinue.on("click", function() {
         console.log("continue ...");
-        Resources.select.play();
+        // Resources.select.play();
         currentLevel++;
         if(currentLevel >= levels.length) {
             currentLevel = 0;
@@ -159,7 +159,7 @@ require(["game",
             Canvas.context.textAlign = "left";
         },
         clear: function(cb) {
-            Resources.select.play();
+            // Resources.select.play();
             cb();
         },
         click: function(mouse) {
@@ -186,7 +186,7 @@ require(["game",
         },
         clear: function(cb) {
             Canvas.clear("black");
-            Resources.select.play();
+            // Resources.select.play();
             cb();
         },
         click: function(mouse) {
@@ -213,7 +213,7 @@ require(["game",
             {
                 label: "Restart",
                 action: function() {
-                    Resources.select.play();
+                    // Resources.select.play();
                     play.reset();
                     game.state = play;
                 }
@@ -221,14 +221,14 @@ require(["game",
             {
                 label: "Menu",
                 action: function() {
-                    Resources.select.play();
+                    // Resources.select.play();
                     game.state = home;
                 }
             },
             {
                 label: "Highscores",
                 action: function() {
-                    Resources.select.play();
+                    // Resources.select.play();
                     game.state = scores;                    
                 }
             }             
@@ -238,7 +238,7 @@ require(["game",
             {
                 label: "Resume",
                 action: function() {
-                    Resources.select.play();
+                    // Resources.select.play();
                     //Resources.select.play();
                     //play.getWorld().pausetime = paused.lifetime;
                     game.state = play;
@@ -247,7 +247,7 @@ require(["game",
             {
                 label: "Menu",
                 action: function() {
-                    Resources.select.play();
+                    // Resources.select.play();
                     //Resources.select.play();
                     game.state = home;
                 }
@@ -257,7 +257,7 @@ require(["game",
             {
                 label: "Play",
                 action: function() {
-                    Resources.select.play();
+                    // Resources.select.play();
                     play.reset();
                     game.state = play;                    
                 }
@@ -265,7 +265,7 @@ require(["game",
             {
                 label: "Credits",
                 action: function() {
-                    Resources.select.play();
+                    // Resources.select.play();
                    // Resources.select.play();
                     // document.getElementById("credits").style.display = "block";
                     //console.log("show credits");
@@ -275,7 +275,7 @@ require(["game",
             {
                 label: "Highscores",
                 action: function() {
-                    Resources.select.play();
+                    // Resources.select.play();
                     game.state = scores;                    
                 }
             },            
