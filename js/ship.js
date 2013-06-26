@@ -85,6 +85,9 @@ define("ship", [
 					if(c[0].distance > 10) {
 						shipMesh.position.z -= speed.gravity;
 					}
+					if(c[0].distance < 10) {
+						shipMesh.position.z += 10 - c[0].distance;
+					}
 				} else {
 					console.log("no more ground!");
 					shipMesh.position.z -= speed.gravity;

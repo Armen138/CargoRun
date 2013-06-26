@@ -44,11 +44,14 @@ require(["game",
         "dirt": "images/dirt.png",
         "grid": "images/grid.png",
         "bricks": "images/bricks.png",
+        "star": "images/star.png",
         "music": "audio/music.mp3",
         "boop": "audio/boop.ogg",
         "select": "audio/select.ogg",
         "ship": "3d/ship3.js",
-        "fuel": "3d/fuel.js"
+        "fuel": "3d/fuel.js",
+        "bump": "3d/bump.js",
+        "bridge": "3d/bridge.js"
     });
 
     play.on("menu", function() {

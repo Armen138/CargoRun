@@ -1,4 +1,4 @@
-define("world", function() {
+define("world", ["resources"], function(Resources) {
 	var planes = [];
 	var obstacles = [];
 	var MAXPLANES = 6;	
@@ -11,12 +11,21 @@ define("world", function() {
        	for(var i = 0; i < MAXPLANES; i++) {
        		var plane = new THREE.Mesh(new THREE.PlaneGeometry(400, 400, 1, 1), material);
 	        plane.position.z = -30;
-	        plane.position.y = 200 + i * 400;
+	        plane.position.y = 200 + i * 400;	        
 	        // plane.receiveShadow = true;
 	        scene.add(plane);
 	        planes.push(plane);       		
        	}
+       	console.log(Resources.bump);
+       	var bump = new THREE.Mesh(Resources.bridge.geometry, Resources.bridge.material);
+       	bump.position.y = 2000;
+       	bump.position.x = -200;
+       	bump.position.z = 140;
+       	bump.scale.set(30, 30, 30);
+	    bump.rotation.x += Math.PI / 2;
+	    bump.rotation.y = Math.PI;
 
+       	scene.add(bump);
    //     	for(var i = 0; i < MAXOBSTACLES; i++) {
 			// var cube = new THREE.Mesh( new THREE.CubeGeometry( 50, 50, 50 ), material );
 			// cube.position.y = 200 + i * 400;
