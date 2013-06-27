@@ -7,6 +7,7 @@ define("fuel", ["resources", "events"], function(Resources, Events) {
 	    	mesh.scale.set(5, 5, 5);	
 	    	mesh.castShadow = true;
 	    	mesh.position = position;//new THREE.Vector3(0, 10, 0);	
+	    	mesh.name = "fuel";
 		scene.add(mesh);		
 		var fuel = {
 			update: function(d) {

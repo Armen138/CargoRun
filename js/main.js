@@ -40,6 +40,7 @@ require(["game",
     });
 
     Resources.load({
+        "fuelicon": "images/fuel.png",
         "grass": "images/grass.png",
         "dirt": "images/dirt.png",
         "grid": "images/grid.png",
@@ -51,7 +52,7 @@ require(["game",
         "ship": "3d/ship3.js",
         "fuel": "3d/fuel.js",
         "bump": "3d/bump.js",
-        "bridge": "3d/bridge.js"
+        "bridge": "3d/wingedbridge.js"
     });
 
     play.on("menu", function() {

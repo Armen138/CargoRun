@@ -25,7 +25,10 @@ define("ship", [
 	    shipMesh.rotation.y = Math.PI;
 	    shipMesh.scale.set(2, 2, 2);	
 	    shipMesh.castShadow = true;	
+	    shipMesh.name = "ship";
 		var groundCheck = new THREE.Raycaster();//shipMesh.position, );	    	
+		var noseCheck = new THREE.Raycaster();
+		var front = new THREE.Vector3(0, 1, 0); 
 		var down = new THREE.Vector3(0, 0, -1);
 		var jumpStart = 0;
 		scene.add(shipMesh);
@@ -79,8 +82,13 @@ define("ship", [
 			},
 			update: function(d) {
 				var now = Date.now();
+				var noseRayPosition = shipMesh.position.clone();
+				noseRayPosition.y -= 10;
+				noseRayPosition.z += 5;
+				noseCheck.set(noseRayPosition, front);
 				groundCheck.set(shipMesh.position, down);
 				var c = groundCheck.intersectObject(scene, true);
+				var f = noseCheck.intersectObject(scene, true);
 				if(c.length > 0) {
 					if(c[0].distance > 10) {
 						shipMesh.position.z -= speed.gravity;
@@ -91,6 +99,19 @@ define("ship", [
 				} else {
 					console.log("no more ground!");
 					shipMesh.position.z -= speed.gravity;
+				}
+
+				if(f.length > 0) {
+					for(var i = 0; i < f.length; i++) {
+						if(shipMesh.position.y > 20 && f[i].object.name !== "ship" && f[i].distance < 20) {
+							// console.log(f[i]);
+							console.log("die");
+							shipMesh.position.y -= 20 - f[i].distance;
+							camera.position.y -= 20 - f[i].distance;
+							speed.current = 0;
+							// console.log("bloo");
+						}						
+					}
 				}
 				if(now - jumpStart < limits.jump) {
 					var upforce = speed.jump - speed.jump * (now - jumpStart) / limits.jump;

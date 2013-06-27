@@ -20,7 +20,18 @@ define("play", [
             Explosion,
             World) {
     "use strict";
-    var last = 0;    
+    var last = 0;   
+    var stats = {
+        fuel: 0
+    };
+    function drawHud() {
+        Canvas.clear("black");
+        Canvas.context.save();
+        for(var i = 0; i < stats.fuel; i++) {
+            Canvas.context.drawImage(Resources.fuelicon, 10 + i * 36, 10);    
+        }        
+        Canvas.context.restore();        
+    } 
     var Play = function(gl) {        
         var play = {
             updates: [],
@@ -45,6 +56,7 @@ define("play", [
                                         // play.ship.mesh.remove(exp.system);
                                     });
                                 // play.ship.mesh.add(exp.system);
+                                stats.fuel++;
                                 play.updates.push(exp);                                                                      
                             });play.fuel.push(fuel);
                         }());
@@ -79,6 +91,7 @@ define("play", [
                     play.updates[i].update(now - last);
                 }                
                 gl.renderer.render(gl.scene, gl.camera);
+                drawHud();
                 last = now;
             },
             clear: function(cb) {
@@ -102,16 +115,19 @@ define("play", [
                         play.ship.control.down = true;
                         break;
                     case keys.SPACE:
-                        play.ship.control.jump();
-                        (function() {
-                            var exp = Explosion(gl.scene, 
-                                                play.ship.mesh.position.clone());
-                                exp.on("end", function() {
-                                    // play.ship.mesh.remove(exp.system);
-                                });
-                            // play.ship.mesh.add(exp.system);
-                            play.updates.push(exp);                                                                      
-                        }());
+                        if(stats.fuel > 0) {
+                            stats.fuel--;
+                            play.ship.control.jump();
+                            (function() {
+                                var exp = Explosion(gl.scene, 
+                                                    play.ship.mesh.position.clone());
+                                    exp.on("end", function() {
+                                        // play.ship.mesh.remove(exp.system);
+                                    });
+                                // play.ship.mesh.add(exp.system);
+                                play.updates.push(exp);                                                                      
+                            }());                            
+                        }
                         break;
                     default:
                         break;                        

@@ -11,7 +11,8 @@ define("world", ["resources"], function(Resources) {
        	for(var i = 0; i < MAXPLANES; i++) {
        		var plane = new THREE.Mesh(new THREE.PlaneGeometry(400, 400, 1, 1), material);
 	        plane.position.z = -30;
-	        plane.position.y = 200 + i * 400;	        
+	        plane.position.y = 200 + i * 400;	
+	        plane.name = "plane";        
 	        // plane.receiveShadow = true;
 	        scene.add(plane);
 	        planes.push(plane);       		
@@ -19,12 +20,12 @@ define("world", ["resources"], function(Resources) {
        	console.log(Resources.bump);
        	var bump = new THREE.Mesh(Resources.bridge.geometry, Resources.bridge.material);
        	bump.position.y = 2000;
-       	bump.position.x = -200;
-       	bump.position.z = 140;
-       	bump.scale.set(30, 30, 30);
+       	bump.position.x = 0;
+       	bump.position.z = 0;
+       	bump.scale.set(17, 17, 17);
 	    bump.rotation.x += Math.PI / 2;
-	    bump.rotation.y = Math.PI;
-
+	    bump.rotation.y = Math.PI / 2;
+	    bump.name = "bridge";
        	scene.add(bump);
    //     	for(var i = 0; i < MAXOBSTACLES; i++) {
 			// var cube = new THREE.Mesh( new THREE.CubeGeometry( 50, 50, 50 ), material );
