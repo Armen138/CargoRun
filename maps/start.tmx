@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="10" height="300" tilewidth="32" tileheight="32">
+ <layer name="Tile Layer 1" width="10" height="300">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20MH6AAAAAAAAAAAAAAAOBvLuAAAQ==
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" width="10" height="300">
+  <object name="start" type="floor" x="0" y="9440" width="320" height="160">
+   <properties>
+    <property name="Z" value="0"/>
+   </properties>
+  </object>
+  <object name="floor" type="floor" x="0" y="9024" width="32" height="416">
+   <properties>
+    <property name="Z" value="5"/>
+   </properties>
+  </object>
+  <object name="floor" type="floor" x="288" y="9024" width="32" height="416">
+   <properties>
+    <property name="Z" value="5"/>
+   </properties>
+  </object>
+  <object name="floor" type="floor" x="64" y="9024" width="64" height="416">
+   <properties>
+    <property name="Z" value="5"/>
+   </properties>
+  </object>
+  <object name="floor" type="floor" x="192" y="9024" width="64" height="416">
+   <properties>
+    <property name="Z" value="5"/>
+   </properties>
+  </object>
+  <object name="floor" type="floor" x="64" y="8672" width="192" height="352">
+   <properties>
+    <property name="z" value="-5"/>
+   </properties>
+  </object>
+  <object name="floor" type="floor" x="128" y="8224" width="64" height="448">
+   <properties>
+    <property name="Z" value="-5"/>
+   </properties>
+  </object>
+  <object name="floor" type="floor" x="288" y="7808" width="32" height="416">
+   <properties>
+    <property name="Z" value="5"/>
+   </properties>
+  </object>
+  <object name="floor" type="floor" x="192" y="7808" width="64" height="416">
+   <properties>
+    <property name="Z" value="5"/>
+   </properties>
+  </object>
+  <object name="floor" type="floor" x="64" y="7808" width="64" height="416">
+   <properties>
+    <property name="Z" value="5"/>
+   </properties>
+  </object>
+  <object name="floor" type="floor" x="0" y="7808" width="32" height="416">
+   <properties>
+    <property name="Z" value="5"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Object Layer 2" width="10" height="300">
+  <object name="fuel" type="powerup" x="160" y="9472"/>
+  <object name="fuel" type="powerup" x="96" y="7872"/>
+  <object name="fuel" type="powerup" x="96" y="7904"/>
+  <object name="fuel" type="powerup" x="96" y="7936"/>
+  <object name="fuel" type="powerup" x="96" y="7968"/>
+  <object name="fuel" type="powerup" x="96" y="8032"/>
+  <object name="fuel" type="powerup" x="96" y="8000"/>
+  <object name="fuel" type="powerup" x="96" y="8064"/>
+  <object name="fuel" type="powerup" x="96" y="8096"/>
+  <object name="fuel" type="powerup" x="96" y="8128"/>
+  <object name="fuel" type="powerup" x="96" y="8160"/>
+  <object name="fuel" type="powerup" x="96" y="8192"/>
+ </objectgroup>
+</map>

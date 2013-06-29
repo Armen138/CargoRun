@@ -24,7 +24,7 @@ define("world", ["resources"], function(Resources) {
        	bump.position.z = 0;
        	bump.scale.set(17, 17, 17);
 	    bump.rotation.x += Math.PI / 2;
-	    bump.rotation.y = Math.PI / 2;
+	    bump.rotation.y = Math.PI / 2 + Math.PI;
 	    bump.name = "bridge";
        	scene.add(bump);
    //     	for(var i = 0; i < MAXOBSTACLES; i++) {
