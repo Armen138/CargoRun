@@ -1,7 +1,8 @@
 define("canvas", function() {
-	var canvas = document.getElementsByTagName("canvas")[0];
+	var canvas = document.getElementsByTagName("canvas")[0];	
 	function Canvas(canvas) {
 		canvas = canvas || document.createElement("canvas");
+		// canvas.style.zIndex = 55;
 		var context = canvas.getContext("2d");
 		var C = {
 			element: canvas,

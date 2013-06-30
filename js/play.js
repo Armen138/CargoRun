@@ -22,7 +22,8 @@ define("play", [
     "use strict";
     var last = 0;
     var stats = {
-        fuel: 0
+        fuel: 0,
+        distance: 0
     };
 
     var rendererStats   = new THREEx.RendererStats();
@@ -30,7 +31,7 @@ define("play", [
     rendererStats.domElement.style.left = '0px';
     rendererStats.domElement.style.bottom = '0px';
     rendererStats.domElement.style.zIndex = "99";
-    rendererStats.domElement.style.width = "110px";
+    // rendererStats.domElement.style.width = "110px";
     document.body.appendChild(rendererStats.domElement);
 
     function drawHud() {
@@ -85,7 +86,10 @@ define("play", [
                     gl.camera.add(pointLight);
                     gl.camera.position.y = -200;
                     gl.camera.position.z = 100;
-
+                    play.ship.on("death", function() {
+                        alert("ship died.");
+                        play.fire("gameover", play.ship.mesh.position.y | 0);
+                    });
                 }
             },
             run: function() {

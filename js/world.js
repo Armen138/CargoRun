@@ -9,7 +9,8 @@ define("world", ["resources"], function(Resources) {
         texture.repeat.set(5, 5);                    
         var material = new THREE.MeshLambertMaterial({ map: texture });
        	for(var i = 0; i < MAXPLANES; i++) {
-       		var plane = new THREE.Mesh(new THREE.PlaneGeometry(400, 400, 1, 1), material);
+       		// var plane = new THREE.Mesh(new THREE.PlaneGeometry(400, 400, 1, 1), material);
+       		var plane = new THREE.Mesh(new THREE.PlaneGeometry(40, 400, 1, 1), material);
 	        plane.position.z = -30;
 	        plane.position.y = 200 + i * 400;	
 	        plane.name = "plane";        
@@ -52,6 +53,7 @@ define("world", ["resources"], function(Resources) {
 				if(ship.mesh.position.y > planes[0].position.y + 400) {
 					var plane = planes.shift();
 					plane.position.y += MAXPLANES * 400;
+					plane.position.x += 40;
 					planes.push(plane);
 				}
 				// collide();

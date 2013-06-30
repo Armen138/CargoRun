@@ -1,4 +1,4 @@
-define("gl", function() {
+define("gl", ["canvas"], function(Canvas) {
 	var gl = {
 		width: window.innerWidth,
 		height: window.innerHeight,

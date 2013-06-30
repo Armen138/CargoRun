@@ -1,7 +1,9 @@
 define("ship", [
+	"events",
 	"resources",
 	"trail",
 	"easing"], function(
+		Events,
 		Resources,
 		Trail,
 		easing) {
@@ -99,6 +101,9 @@ define("ship", [
 				} else {
 					console.log("no more ground!");
 					shipMesh.position.z -= speed.gravity;
+					if(shipMesh.position.z < -100) {						
+						ship.fire("death");
+					}
 				}
 
 				if(f.length > 0) {
@@ -168,6 +173,7 @@ define("ship", [
 
 		};
 		window.ship = ship;
+		Events.attach(ship);
 		return ship;
 	};
 	return Ship;
