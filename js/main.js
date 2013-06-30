@@ -146,6 +146,8 @@ require(["game",
     var credits = {
         init: function() {
             credits.content = [
+                "",
+                "CargoRun v" + version.app,
                 "Programming",
                 "Armen138",
                 "Music",
