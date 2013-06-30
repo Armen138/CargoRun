@@ -1,0 +1,22 @@
+<project name="CargoRun" default="dev">
+    <import file="../build/version.xml"/>
+    <import file="../build/dev138.xml"/>
+    <import file="build/copy.xml"/>
+    <target name="dev">
+        <!-- composer command="install" composer="../build/composer.phar" / -->
+        <phingcall target="version">
+            <property name="amd" value="js/version.js"/>
+        </phingcall>
+    </target>
+    <target name="prod">
+        <phingcall target="dev"/>
+        <exec command="r.js -o baseUrl=js name=main out=bin/js/main.js" checkreturn="TRUE" />
+        <phingcall target="copy"/>
+    </target>
+    <target name="deploy">
+        <phingcall target="prod"/>
+        <phingcall target="dev138">
+            <property name="project" value="cargorun"/>
+        </phingcall>
+    </target>
+</project>

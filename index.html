@@ -3,7 +3,7 @@
 	<head>
 		<meta charset='utf-8'>
 		<title>Cargo Run</title>
-		<link rel="stylesheet" href="fonts/stylesheet.css"></link>	
+		<link rel="stylesheet" href="fonts/stylesheet.css"></link>
 		<style>
 		canvas {
 			position: absolute;
@@ -14,7 +14,7 @@
 			margin: 0;
 			padding: 0;
 		}
-		</style>	
+		</style>
 		<!-- script type="text/javascript">
 			var Clay = Clay || {};
 			Clay.gameKey = "piratecargo";
@@ -30,6 +30,7 @@
 			});
 		</script>
 		<script src="http://clay.io/api/api.js"></script -->
+		<script src='js/threex.rendererstats.js'></script>
 		<script src="js/three.min.js"></script>
 		<script data-main="js/main" src="js/require.js"></script>
 
@@ -38,9 +39,9 @@
     attribute float alpha;
     attribute float size;
     varying float vAlpha;
-	
+
     void main() {
-        vAlpha = alpha;    
+        vAlpha = alpha;
         vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
         gl_PointSize = size;
         gl_Position = projectionMatrix * mvPosition;
@@ -50,7 +51,7 @@
 
 <script type="x-shader/x-fragment" id="fragmentshader">
 
-    uniform sampler2D texture1;    
+    uniform sampler2D texture1;
     varying float vAlpha;
     void main() {
         gl_FragColor = texture2D(texture1, gl_PointCoord);

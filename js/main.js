@@ -3,13 +3,14 @@
 require(["game",
         "canvas",
         "resources",
-        "menu",        
+        "menu",
         "play",
         "gl",
         "gui/modal",
         "gui/element",
         "gui/label",
-        "gui/badge",        
+        "gui/badge",
+        "version"
         ],
     function(
             game,
@@ -21,7 +22,8 @@ require(["game",
             Modal,
             Element,
             Label,
-            Badge
+            Badge,
+            version
             ) {
     "use strict";
      var screenSize = { width: window.innerWidth,
@@ -29,6 +31,7 @@ require(["game",
 
     Canvas.size(screenSize);
     Canvas.clear("black");
+    console.log("CargoRun v" + version.app);
 
     var highscores = JSON.parse(localStorage.getItem("highscores") || "[]") ;
 
@@ -59,7 +62,7 @@ require(["game",
         game.state = paused;
     });
     play.on("gameover", function(score) {
-        function addScore(name, score) {            
+        function addScore(name, score) {
             highscores.push({name: name, score: score});
             highscores.sort(function(a, b) {
                 return b.score - a.score;
@@ -67,7 +70,7 @@ require(["game",
             if(highscores.length > 10) {
                 highscores.length = 10;
             }
-            localStorage.setItem("highscores", JSON.stringify(highscores));            
+            localStorage.setItem("highscores", JSON.stringify(highscores));
         }
         game.state = winner;
         var currentName = localStorage.getItem("name") || "";
@@ -80,12 +83,12 @@ require(["game",
                     CocoonJS.App.onTextDialogFinished.removeEventListener(onText)
                     Resources.music.stop();
                 }
-                CocoonJS.App.showTextDialog("new high score!", "enter your name", currentName, CocoonJS.App.KeyboardType.TEXT, "cancel", "submit");    
+                CocoonJS.App.showTextDialog("new high score!", "enter your name", currentName, CocoonJS.App.KeyboardType.TEXT, "cancel", "submit");
                 CocoonJS.App.onTextDialogFinished.addEventListener(onText);
             } else {
-                var name = prompt("enter your name");            
+                var name = prompt("enter your name");
                 addScore(name, score);
-            }            
+            }
         }
     });
     var levels = [ "intro", "level1", "level2" ];
@@ -132,7 +135,7 @@ require(["game",
             image: Resources.grimreaper,
             title: "Butcher",
             description: "Killed them all."
-        })        
+        })
     };
 
     winScreen.add(retry);
@@ -168,7 +171,7 @@ require(["game",
         },
         click: function(mouse) {
             game.state = home;
-        }        
+        }
     };
     var scores = {
         init: function() {
@@ -233,9 +236,9 @@ require(["game",
                 label: "Highscores",
                 action: function() {
                     // Resources.select.play();
-                    game.state = scores;                    
+                    game.state = scores;
                 }
-            }             
+            }
         ], Resources.winner);
 
     var paused = Menu(Canvas.element, [
@@ -263,7 +266,7 @@ require(["game",
                 action: function() {
                     // Resources.select.play();
                     play.reset();
-                    game.state = play;                    
+                    game.state = play;
                 }
             },
             {
@@ -280,9 +283,9 @@ require(["game",
                 label: "Highscores",
                 action: function() {
                     // Resources.select.play();
-                    game.state = scores;                    
+                    game.state = scores;
                 }
-            },            
+            },
         ], Resources.logo);
 
     window.addEventListener("blur", function() {
