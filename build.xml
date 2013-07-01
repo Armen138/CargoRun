@@ -3,14 +3,16 @@
     <import file="../build/dev138.xml"/>
     <import file="build/copy.xml"/>
     <target name="dev">
-        <!-- composer command="install" composer="../build/composer.phar" / -->
+        <property name="composerAction" value="install" />
+        <available file="composer.lock" property="composerAction" value="update" />
+        <composer command="${composerAction}" composer="../build/composer.phar" />
         <phingcall target="version">
             <property name="amd" value="js/version.js"/>
         </phingcall>
     </target>
     <target name="prod">
         <phingcall target="dev"/>
-        <exec command="r.js -o baseUrl=js name=main out=bin/js/main.js" checkreturn="TRUE" />
+        <exec command="r.js -o build.js" checkreturn="TRUE" />
         <phingcall target="copy"/>
     </target>
     <target name="deploy">

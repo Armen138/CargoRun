@@ -1,15 +1,25 @@
 /*jshint newcap:false, nonew:true */
 /*global console */
-require(["game",
-        "canvas",
-        "resources",
-        "menu",
+
+
+requirejs.config({
+    baseUrl: "js",
+    paths: {
+        "1gamlib": "../vendor/1gamlib"
+    }
+});
+
+
+require(["1gamlib/game",
+        "1gamlib/canvas",
+        "1gamlib/resources",
+        "1gamlib/menu",
         "play",
-        "gl",
-        "gui/modal",
-        "gui/element",
-        "gui/label",
-        "gui/badge",
+        "1gamlib/gl",
+        "1gamlib/gui/modal",
+        "1gamlib/gui/element",
+        "1gamlib/gui/label",
+        "1gamlib/gui/badge",
         "version"
         ],
     function(

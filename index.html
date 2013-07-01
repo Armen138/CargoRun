@@ -30,8 +30,9 @@
 			});
 		</script>
 		<script src="http://clay.io/api/api.js"></script -->
-		<script src='js/threex.rendererstats.js'></script>
-		<script src="js/three.min.js"></script>
+
+		<script src='vendor/threex/rendererstats/threex.rendererstats.js'></script>
+		<script src="vendor/threejs/three.min.js"></script>
 		<script data-main="js/main" src="js/require.js"></script>
 
 <script type="x-shader/x-vertex" id="vertexshader">
@@ -50,17 +51,12 @@
 </script>
 
 <script type="x-shader/x-fragment" id="fragmentshader">
-
     uniform sampler2D texture1;
     varying float vAlpha;
     void main() {
         gl_FragColor = texture2D(texture1, gl_PointCoord);
-        // gl_FragColor.r = 0.1;//vAlpha;
-        // gl_FragColor.g = 0.1;//1.0;//vAlpha;
-        // gl_FragColor.b = 0.1;//1.0;
         gl_FragColor.a *= vAlpha;
     }
-
 </script>
 	</head>
 	<body>

@@ -1,8 +1,8 @@
 <project>
     <target name="copy">
         <copy file="js/require.js" tofile="bin/js/require.js" />
-        <copy file="js/three.min.js" tofile="bin/js/three.min.js" />
-        <copy file="js/threex.rendererstats.js" tofile="bin/js/threex.rendererstats.js" />
+        <copy file="vendor/threejs/three.min.js" tofile="bin/vendor/threejs/three.min.js" />
+        <copy file="vendor/threex/rendererstats/threex.rendererstats.js" tofile="bin/vendor/threex/rendererstats/threex.rendererstats.js" />
         <copy file="index.html" tofile="bin/index.html" />
         <copy todir="bin/images">
             <fileset dir="images">

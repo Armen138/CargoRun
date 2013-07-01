@@ -1,0 +1,33 @@
+{
+    "name": "CargoRun",
+    "minimum-stability": "dev",
+    "repositories": [ {
+        "type": "vcs",
+        "url": "git@github.com:Armen138/1gamlib.git"
+    }, {
+        "type": "package",
+        "package": {
+            "name": "threejs",
+            "version": "master",
+            "dist": {
+                "url": "https://raw.github.com/mrdoob/three.js/master/build/three.min.js",
+                "type": "file"
+            }
+        }
+    }, {
+        "type": "package",
+        "package": {
+            "name": "threex/rendererstats",
+            "version": "master",
+            "dist": {
+                "url": "https://raw.github.com/jeromeetienne/threex.rendererstats/master/threex.rendererstats.js",
+                "type": "file"
+            }
+        }
+    }],
+    "require": {
+        "threex/rendererstats": "master",
+        "threejs": "master",
+        "1gamlib": "master"
+    }
+}

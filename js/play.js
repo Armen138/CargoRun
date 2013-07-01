@@ -1,10 +1,10 @@
 /*jshint newcap:false, nonew:true */
 /*global console, alert */
 define("play", [
-        "canvas",
-        "resources",
-        "keys",
-        "events",
+        "1gamlib/canvas",
+        "1gamlib/resources",
+        "1gamlib/keys",
+        "1gamlib/events",
         "ship",
         "fuel",
         "stars",

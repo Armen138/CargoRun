@@ -1,22 +1,22 @@
-define("world", ["resources"], function(Resources) {
+define("world", ["1gamlib/resources"], function(Resources) {
 	var planes = [];
 	var obstacles = [];
-	var MAXPLANES = 6;	
+	var MAXPLANES = 6;
 	var MAXOBSTACLES = 0;
 	var World = function(scene, ship) {
         var texture = THREE.ImageUtils.loadTexture('images/plate1.png');
         texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-        texture.repeat.set(5, 5);                    
+        texture.repeat.set(5, 5);
         var material = new THREE.MeshLambertMaterial({ map: texture });
        	for(var i = 0; i < MAXPLANES; i++) {
        		// var plane = new THREE.Mesh(new THREE.PlaneGeometry(400, 400, 1, 1), material);
        		var plane = new THREE.Mesh(new THREE.PlaneGeometry(40, 400, 1, 1), material);
 	        plane.position.z = -30;
-	        plane.position.y = 200 + i * 400;	
-	        plane.name = "plane";        
+	        plane.position.y = 200 + i * 400;
+	        plane.name = "plane";
 	        // plane.receiveShadow = true;
 	        scene.add(plane);
-	        planes.push(plane);       		
+	        planes.push(plane);
        	}
        	console.log(Resources.bump);
        	var bump = new THREE.Mesh(Resources.bridge.geometry, Resources.bridge.material);
@@ -33,7 +33,7 @@ define("world", ["resources"], function(Resources) {
 			// cube.position.y = 200 + i * 400;
 			// cube.position.x = (Math.random() * 270 | 0) - 135;
 			// scene.add(cube);
-			// obstacles.push(cube);       		
+			// obstacles.push(cube);
        	// }
 
 		// var collide = function() {
@@ -62,7 +62,7 @@ define("world", ["resources"], function(Resources) {
 				// 	obstacle.position.y += 800  + MAXOBSTACLES * 400 + (Math.random() * 400 | 0);
 				// 	obstacle.position.x = (Math.random() * 270 | 0) - 135;
 				// 	obstacles.push(obstacle);
-				// }				
+				// }
 			}
 		};
 		return world;
