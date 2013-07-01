@@ -65,7 +65,9 @@ require(["1gamlib/game",
         "ship": "3d/ship3.js",
         "fuel": "3d/fuel.js",
         "bump": "3d/bump.js",
-        "bridge": "3d/wingedbridge.js"
+        "bridge": "3d/wingedbridge.js",
+        "wheel": "3d/wheel.js",
+        "wheelbox": "3d/wheelbox.js"
     });
 
     play.on("menu", function() {

@@ -122,7 +122,7 @@ define("ship", [
 					var upforce = speed.jump - speed.jump * (now - jumpStart) / limits.jump;
 					shipMesh.position.z += upforce;
 				}
-
+				camera.position.z = shipMesh.position.z + 100;
 				// console.log(c);
 				// if(ship.control.jump) {
 				// 	shipMesh.position.z += d / 5;

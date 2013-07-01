@@ -10,7 +10,7 @@ define("world", ["1gamlib/resources"], function(Resources) {
         var material = new THREE.MeshLambertMaterial({ map: texture });
        	for(var i = 0; i < MAXPLANES; i++) {
        		// var plane = new THREE.Mesh(new THREE.PlaneGeometry(400, 400, 1, 1), material);
-       		var plane = new THREE.Mesh(new THREE.PlaneGeometry(40, 400, 1, 1), material);
+       		var plane = new THREE.Mesh(new THREE.PlaneGeometry(400, 400, 1, 1), material);
 	        plane.position.z = -30;
 	        plane.position.y = 200 + i * 400;
 	        plane.name = "plane";
@@ -19,6 +19,8 @@ define("world", ["1gamlib/resources"], function(Resources) {
 	        planes.push(plane);
        	}
        	console.log(Resources.bump);
+       	var wheelbox = new THREE.Mesh(Resources.wheelbox.geometry, Resources.wheelbox.material);
+       	var wheel = new THREE.Mesh(Resources.wheel.geometry, Resources.wheel.material);
        	var bump = new THREE.Mesh(Resources.bridge.geometry, Resources.bridge.material);
        	bump.position.y = 2000;
        	bump.position.x = 0;
@@ -27,7 +29,14 @@ define("world", ["1gamlib/resources"], function(Resources) {
 	    bump.rotation.x += Math.PI / 2;
 	    bump.rotation.y = Math.PI / 2 + Math.PI;
 	    bump.name = "bridge";
+	    wheel.scale.set(10, 10, 10);
+	    wheelbox.scale.set(10, 10, 10);
+	    wheel.position.y = 3000;
+	    wheelbox.position.y = 3000;
+	    wheelbox.rotation.y = Math.PI / 2;
        	scene.add(bump);
+       	scene.add(wheel);
+       	scene.add(wheelbox);
    //     	for(var i = 0; i < MAXOBSTACLES; i++) {
 			// var cube = new THREE.Mesh( new THREE.CubeGeometry( 50, 50, 50 ), material );
 			// cube.position.y = 200 + i * 400;
@@ -53,9 +62,10 @@ define("world", ["1gamlib/resources"], function(Resources) {
 				if(ship.mesh.position.y > planes[0].position.y + 400) {
 					var plane = planes.shift();
 					plane.position.y += MAXPLANES * 400;
-					plane.position.x += 40;
+					// plane.position.x += 40;
 					planes.push(plane);
 				}
+				wheel.rotation.y += d / 1000;
 				// collide();
 				// if(ship.mesh.position.y > obstacles[0].position.y + 200) {
 				// 	var obstacle = obstacles.shift();
