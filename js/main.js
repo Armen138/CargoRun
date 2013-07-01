@@ -67,7 +67,8 @@ require(["1gamlib/game",
         "bump": "3d/bump.js",
         "bridge": "3d/wingedbridge.js",
         "wheel": "3d/wheel.js",
-        "wheelbox": "3d/wheelbox.js"
+        "wheelbox": "3d/wheelbox.js",
+        "level": "3d/level.js"
     });
 
     play.on("menu", function() {
