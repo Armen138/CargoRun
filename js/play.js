@@ -73,6 +73,8 @@ define("play", [
 
                     }
 
+                    // var ambientLight = new THREE.AmbientLight(0xCCCCCC);
+                    // gl.scene.add(ambientLight);
                     var pointLight = new THREE.PointLight(0xFFFFFF);//, 1.0, 1200, 120, 1);
 
                     // set its position

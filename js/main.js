@@ -68,7 +68,9 @@ require(["1gamlib/game",
         "bridge": "3d/wingedbridge.js",
         "wheel": "3d/wheel.js",
         "wheelbox": "3d/wheelbox.js",
-        "level": "3d/level.js"
+        "level": "3d/level.js",
+        "level2": "3d/level2.js",
+        "station": "3d/stationtile.js"
     });
 
     play.on("menu", function() {

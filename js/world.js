@@ -22,6 +22,7 @@ define("world", ["1gamlib/resources"], function(Resources) {
        	var wheelbox = new THREE.Mesh(Resources.wheelbox.geometry, Resources.wheelbox.material);
        	var wheel = new THREE.Mesh(Resources.wheel.geometry, Resources.wheel.material);
        	var bump = new THREE.Mesh(Resources.level.geometry, Resources.level.material);
+       	var tile2 = new THREE.Mesh(Resources.station.geometry, Resources.station.material);
        	bump.position.y = 0;
        	bump.position.x = 0;
        	bump.position.z = -10;
@@ -29,12 +30,22 @@ define("world", ["1gamlib/resources"], function(Resources) {
 	    bump.rotation.x += Math.PI / 2;
 	    bump.rotation.y = Math.PI / 2 + Math.PI;
 	    bump.name = "bridge";
+
+       	tile2.position.y = 0;
+       	tile2.position.x = 0;
+       	tile2.position.z = -40;
+       	tile2.scale.set(170, 170, 170);
+	    tile2.rotation.x += Math.PI / 2;
+	    tile2.rotation.y = Math.PI / 2;// + Math.PI;
+	    tile2.name = "bridge";
+
 	    // wheel.scale.set(10, 10, 10);
 	    // wheelbox.scale.set(10, 10, 10);
 	    // wheel.position.y = 3000;
 	    // wheelbox.position.y = 3000;
 	    // wheelbox.rotation.y = Math.PI / 2;
-       	scene.add(bump);
+       	// scene.add(bump);
+       	scene.add(tile2);
        	// scene.add(wheel);
        	// scene.add(wheelbox);
    //     	for(var i = 0; i < MAXOBSTACLES; i++) {
